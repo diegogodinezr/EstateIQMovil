@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "estateIQ",
-    "slug": "estateIQ",
+    "slug": "estateiq",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6ed98003-ba95-4e74-b4f6-f40c4dbe483b"
+      }
+    },
+    "owner": "diegogodinezr"
   }
 }
