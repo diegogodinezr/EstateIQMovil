@@ -14,6 +14,8 @@ import MessagesScreen from "./screens/MessagesScreen";
 import AddScreen from "./screens/AddScreen";
 import RegisterScreen from "./screens/RegisterScreen"; // Importa RegisterScreen
 import LoginScreen from "./screens/LoginScreen"; // Importa LoginScreen
+import AccountNotifications from "./screens/AccountNotifications"; 
+import AccountProfile from "./screens/AccountProfile"; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -90,6 +92,7 @@ function MyTabs() {
             headerShown: false
           }}
         />
+        
       </Tab.Navigator>
     );
   }
@@ -116,6 +119,22 @@ function MyTabs() {
             name="Login"
             component={LoginScreen} 
             options={{ headerShown: false }} 
+          />
+          {/* Agrega las pantallas de perfil y notificaciones */}
+          <Stack.Screen 
+            name="ProfileScreen" 
+            component={AccountProfile} 
+            options={{ headerShown: false }} 
+          />
+          <Stack.Screen 
+            name="NotificationsScreen" 
+            component={AccountNotifications} 
+            options={{ headerShown: false }} 
+          />
+          <Stack.Screen
+            name="Account"
+            component={AccountScreen}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>

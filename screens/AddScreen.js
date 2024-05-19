@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
 
 const AddScreen = () => {
   const [images, setImages] = useState([]);
@@ -52,26 +53,26 @@ const AddScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Publicar una propiedad</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Publicar una propiedad</Text>
 
-        {/* Botones Rentar/Vender */}
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity
-            style={[styles.actionButton, rentMode ? styles.activeButton : styles.inactiveButton]}
-            onPress={handleRentToggle}
-          >
-            <Text style={styles.actionButtonText}>Rentar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.actionButton, sellMode ? styles.activeButton : styles.inactiveButton]}
-            onPress={handleSellToggle}
-          >
-            <Text style={styles.actionButtonText}>Vender</Text>
-          </TouchableOpacity>
+          {/* Botones Rentar/Vender */}
+          <View style={styles.actionsContainer}>
+            <TouchableOpacity
+              style={[styles.actionButton, rentMode ? styles.activeButton : styles.inactiveButton]}
+              onPress={handleRentToggle}
+            >
+              <Text style={styles.actionButtonText}>Rentar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.actionButton, sellMode ? styles.activeButton : styles.inactiveButton]}
+              onPress={handleSellToggle}
+            >
+              <Text style={styles.actionButtonText}>Vender</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
       {/* Sección de fotos */}
       <View style={styles.imageContainer}>
@@ -122,19 +123,17 @@ const AddScreen = () => {
       </View>
       {/* Campo de detalles */}
       <TextInput style={styles.input} placeholder="Detalles" value={details} onChangeText={setDetails} />
-
       {/* Botones */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Publicar</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 80,
-    flex: 1,
     padding: 20,
     backgroundColor: '#f0f0f0',
   },
@@ -173,7 +172,8 @@ const styles = StyleSheet.create({
   },
   addPhotoButton: {
     backgroundColor: '#f5f5f5',
-    padding: 15,
+    padding: 30,
+    width: '60%',
     borderRadius: 5,
     alignItems: 'center',
     margin: 5,
@@ -185,8 +185,9 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#fff',
-    padding: 10,
-    marginBottom: 10,
+    padding: 13,
+    fontWeight: 'bold',
+    marginBottom: 20,
     borderRadius: 5,
   },
   detailsContainer: {
@@ -196,7 +197,8 @@ const styles = StyleSheet.create({
   },
   detailsInput: {
     backgroundColor: '#fff',
-    padding: 10,
+    padding: 13,
+    fontWeight: 'bold',
     flex: 1,
     margin: 5,
     borderRadius: 5,
@@ -206,11 +208,11 @@ const styles = StyleSheet.create({
     padding: 15,
     width: '60%',
     borderRadius: 5,
-    marginLeft: 70,
+    marginLeft: 75,
     alignItems: 'center',
   },
   buttonText: {
-    color: '#fff',
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
   },
