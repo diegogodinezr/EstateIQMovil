@@ -12,6 +12,8 @@ const AddScreen = () => {
   const [bathrooms, setBathrooms] = useState('');
   const [squareMeters, setSquareMeters] = useState('');
   const [details, setDetails] = useState('');
+  const [rentMode, setRentMode] = useState(true); // Estado para el modo Rentar
+  const [sellMode, setSellMode] = useState(false); // Estado para el modo Vender
 
   const handleChooseImage = () => {
     ImagePicker.launchImageLibrary({ mediaType: 'photo' }, (response) => {
@@ -39,9 +41,37 @@ const AddScreen = () => {
     });
   };
 
+  const handleRentToggle = () => {
+    setRentMode(true);
+    setSellMode(false);
+  };
+
+  const handleSellToggle = () => {
+    setSellMode(true);
+    setRentMode(false);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Publicar una propiedad</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Publicar una propiedad</Text>
+
+        {/* Botones Rentar/Vender */}
+        <View style={styles.actionsContainer}>
+          <TouchableOpacity
+            style={[styles.actionButton, rentMode ? styles.activeButton : styles.inactiveButton]}
+            onPress={handleRentToggle}
+          >
+            <Text style={styles.actionButtonText}>Rentar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.actionButton, sellMode ? styles.activeButton : styles.inactiveButton]}
+            onPress={handleSellToggle}
+          >
+            <Text style={styles.actionButtonText}>Vender</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       {/* Sección de fotos */}
       <View style={styles.imageContainer}>
@@ -55,18 +85,41 @@ const AddScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Formulario */}
-      <TextInput style={styles.input} placeholder="Título" value={title} onChangeText={setTitle} />
-      <TextInput style={styles.input} placeholder="Precio por mes" value={price} onChangeText={setPrice} />
+     {/* Formulario */}
+     <TextInput style={styles.input} placeholder="Título" value={title} onChangeText={setTitle} />
+      <TextInput 
+        style={styles.input} 
+        placeholder="Precio" 
+        value={price} 
+        onChangeText={setPrice} 
+        keyboardType="numeric" // Solo permite números
+      />
       <TextInput style={styles.input} placeholder="Ubicación" value={location} onChangeText={setLocation} />
 
       {/* Seccion para recamaras, baños y m2 */}
       <View style={styles.detailsContainer}>
-        <TextInput style={styles.detailsInput} placeholder="Recámaras" value={bedrooms} onChangeText={setBedrooms} />
-        <TextInput style={styles.detailsInput} placeholder="Baños" value={bathrooms} onChangeText={setBathrooms} />
-        <TextInput style={styles.detailsInput} placeholder="m²" value={squareMeters} onChangeText={setSquareMeters} />
+        <TextInput 
+          style={styles.detailsInput} 
+          placeholder="Recámaras" 
+          value={bedrooms} 
+          onChangeText={setBedrooms} 
+          keyboardType="numeric" // Solo permite números
+        />
+        <TextInput 
+          style={styles.detailsInput} 
+          placeholder="Baños" 
+          value={bathrooms} 
+          onChangeText={setBathrooms} 
+          keyboardType="numeric" // Solo permite números
+        />
+        <TextInput 
+          style={styles.detailsInput} 
+          placeholder="m²" 
+          value={squareMeters} 
+          onChangeText={setSquareMeters} 
+          keyboardType="numeric" // Solo permite números
+        />
       </View>
-
       {/* Campo de detalles */}
       <TextInput style={styles.input} placeholder="Detalles" value={details} onChangeText={setDetails} />
 
@@ -80,10 +133,25 @@ const AddScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
+    marginTop: 80,
     flex: 1,
     padding: 20,
     backgroundColor: '#f0f0f0',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  container: {
+    marginTop: 80,
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+  },
+  header: {
+    marginBottom: 1, // Añade espacio entre el título y los botones
   },
   title: {
     fontSize: 24,
@@ -136,13 +204,42 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#FFC157',
     padding: 15,
+    width: '60%',
     borderRadius: 5,
+    marginLeft: 70,
     alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  actionsContainer: {
+    flexDirection: 'row', // Cambia la dirección a columna
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  actionButton: {
+    backgroundColor: '#D3D3D3', // Color del botón inactivo
+    margin: 10, // Aumenta el margen
+    padding: 7, // Aumenta el padding
+    marginLeft: 40, // Espacio entre botones
+    borderRadius: 10,
+    width: '30%', // Ajusta el ancho
+    alignItems: 'center',
+    marginBottom: 5, // Espacio entre botones
+  },
+  activeButton: {
+    backgroundColor: '#FFC157', // Color del botón activo
+  },
+  inactiveButton: {
+    backgroundColor: '#D3D3D3', // Color del botón inactivo
+  },
+  actionButtonText: {
+    color: 'black',
+    fontSize: 16, // Aumenta el tamaño del texto
+    fontWeight: 'bold',
+    justifyContent: 'center',
   },
 });
 

@@ -30,7 +30,9 @@ const RegisterScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputField}>
+        
           <MaterialCommunityIcons name="lock" size={24} color="black" />
+        
           <TextInput 
             style={styles.input} 
             placeholder="Contraseña" 
@@ -40,7 +42,9 @@ const RegisterScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.inputField}>
+        
           <MaterialCommunityIcons name="lock" size={24} color="black" />
+        
           <TextInput 
             style={styles.input} 
             placeholder="Confirmar contraseña" 
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFF0F0', // Color de fondo
+        backgroundColor: '#fff', // Color de fondo
         padding: 10,
       },
       title: {
@@ -85,15 +89,17 @@ const styles = StyleSheet.create({
         marginBottom: 30,
       },
       inputField: {
-        backgroundColor: '#FFFAF0', // Color de fondo de los campos de entrada
-        padding: 20, // Aumenta el padding para mayor tamaño
-        borderRadius: 5,
-        marginBottom: 10,
+        backgroundColor: '#FFD78F', // Color de fondo de los campos de entrada
+        padding: 8, // Aumenta el padding para mayor tamaño
+        borderRadius: 10,
+        marginBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
       },
       input: {
         flex: 1,
+        fontWeight: 'bold',
+        color: '#000', // Color del texto
         marginLeft: 10,
         textAlign: 'center',
         borderRadius: 5,
@@ -102,10 +108,10 @@ const styles = StyleSheet.create({
         padding: 6, // Agrega padding para el texto
       },
       button: {
-        backgroundColor: '#E0E0FF', // Color del botón
-        padding: 20, // Aumenta el padding para mayor tamaño
-        borderRadius: 5,
-        width: '80%',
+        backgroundColor: '#A7BEFF', // Color del botón
+        padding: 4, // Aumenta el padding para mayor tamaño
+        borderRadius: 10,
+        width: '60%',
         alignItems: 'center',
       },
       buttonText: {

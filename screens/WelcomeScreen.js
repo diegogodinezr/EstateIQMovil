@@ -6,7 +6,7 @@ const WelcomeScreen = ({ navigation }) => {
       <View style={styles.container}>
       <Text style={styles.title}>Dale la bienvenida a</Text>
         <Text style={styles.appName}>EstateIQ</Text>
-  
+
         <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.button}>
           <Text style={styles.buttonText}>REGISTRATE</Text>
         </TouchableOpacity>
@@ -62,10 +62,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   link: {
-    backgroundColor: '#E0E0FF',
     padding: 10,
     borderRadius: 5,
-    width: '80%',
+    width: '50%',
     alignItems: 'center',
   },
   linkText: {

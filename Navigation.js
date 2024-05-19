@@ -39,7 +39,7 @@ function MyTabs() {
           name="HomeTab"
           component={HomeTabScreen}
           options={{
-            tabBarLabel: 'Home',
+            tabBarLabel: 'Inicio',
             tabBarIcon: ({ focused }) => (
               <MaterialIcons name="home" size={35} color={focused ? '#FFC157' : 'black'} /> 
             ),
@@ -50,7 +50,7 @@ function MyTabs() {
           name="Discover"
           component={DiscoverScreen}
           options={{
-            tabBarLabel: 'Discover',
+            tabBarLabel: 'Descubrir',
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons name="compass" size={35} color={focused ? '#FFC157' : 'black'} /> 
             ),
@@ -61,7 +61,7 @@ function MyTabs() {
           name="Add"
           component={AddScreen}
           options={{
-            tabBarLabel: 'Add',
+            tabBarLabel: 'Agregar',
             tabBarIcon: ({ focused }) => (
               <MaterialIcons name="add-circle" size={35} color={focused ? '#FFC157' : 'black'} /> 
             ),
@@ -72,7 +72,7 @@ function MyTabs() {
           name="Messages"
           component={MessagesScreen}
           options={{
-            tabBarLabel: 'Messages',
+            tabBarLabel: 'Mensajes',
             tabBarIcon: ({ focused }) => (
               <MaterialIcons name="chat" size={35} color={focused ? '#FFC157' : 'black'} /> 
             ),
@@ -83,7 +83,7 @@ function MyTabs() {
           name="Account"
           component={AccountScreen}
           options={{
-            tabBarLabel: 'Account',
+            tabBarLabel: 'Cuenta',
             tabBarIcon: ({ focused }) => (
               <MaterialCommunityIcons name="account" size={35} color={focused ? '#FFC157' : 'black'} /> 
             ),
