@@ -30,6 +30,7 @@ const AddScreen = () => {
     });
 
     if (!pickerResult.cancelled) {
+      // Añadir imagen solo si no está cancelado
       setImages([...images, { uri: pickerResult.uri }]);
     }
   };
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
   },
   header: {
-    marginTop: 50, // Añade espacio en la parte superior
+    marginTop: 40, // Añade espacio en la parte superior
     marginBottom: 20, // Añade espacio entre el título y los botones
   },
   title: {

@@ -33,7 +33,7 @@ const AccountScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 80,
+    marginTop: 40,
     flex: 1,
     backgroundColor: '#f0f0f0',
     padding: 20,
