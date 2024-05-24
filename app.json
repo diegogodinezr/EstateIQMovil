@@ -20,6 +20,11 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "permissions": [
+      "ACCESS_FINE_LOCATION",
+      "ACCESS_COARSE_LOCATION"
+    ]
+  },
     "web": {
       "favicon": "./assets/favicon.png"
     },
@@ -30,4 +35,4 @@
     },
     "owner": "diegogodinezr"
   }
-}
+
