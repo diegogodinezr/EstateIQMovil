@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { addPropertyRequest } from '../api/property'; // Importa la función de la API
 
 const AddScreen = () => {
   const [images, setImages] = useState([]);
@@ -30,23 +31,47 @@ const AddScreen = () => {
     });
 
     if (!pickerResult.cancelled) {
-      // Añadir imagen solo si no está cancelado
       setImages([...images, { uri: pickerResult.uri }]);
     }
   };
 
-  const handleSubmit = () => {
-    // Aquí se envía la información de la propiedad al backend (opcional)
-    console.log('Formulario enviado:', {
-      title,
-      price,
-      location,
-      bedrooms,
-      bathrooms,
-      squareMeters,
-      details,
-      images,
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('price', price);
+    formData.append('location', location);
+    formData.append('bedrooms', bedrooms);
+    formData.append('bathrooms', bathrooms);
+    formData.append('squaremeters', squareMeters);
+    formData.append('description', details);
+
+    images.forEach((image, index) => {
+      formData.append('images', {
+        uri: image.uri,
+        type: 'image/jpeg',
+        name: `image${index}.jpg`,
+      });
     });
+
+    try {
+      const response = await addPropertyRequest(formData);
+      if (response.status === 200 || response.status === 201) {
+        alert('¡Propiedad agregada con éxito!');
+        setTitle('');
+        setPrice('');
+        setLocation('');
+        setBedrooms('');
+        setBathrooms('');
+        setSquareMeters('');
+        setDetails('');
+        setImages([]);
+      } else {
+        alert('Hubo un error al agregar la propiedad');
+      }
+    } catch (error) {
+      console.error('Error al agregar propiedad:', error);
+      alert('Hubo un error al agregar la propiedad');
+    }
   };
 
   const handleRentToggle = () => {
@@ -65,7 +90,6 @@ const AddScreen = () => {
         <Text style={styles.title}>Publicar una propiedad</Text>
       </View>
 
-      {/* Botones Rentar/Vender */}
       <View style={styles.actionsContainer}>
         <TouchableOpacity
           style={[styles.actionButton, rentMode ? styles.activeButton : styles.inactiveButton]}
@@ -81,7 +105,6 @@ const AddScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Sección de fotos */}
       <View style={styles.imageContainer}>
         {images.length > 0 &&
           images.map((image, index) => (
@@ -93,46 +116,42 @@ const AddScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Formulario */}
       <TextInput style={styles.input} placeholder="Título" value={title} onChangeText={setTitle} />
       <TextInput
         style={styles.input}
         placeholder="Precio"
         value={price}
         onChangeText={setPrice}
-        keyboardType="numeric" // Solo permite números
+        keyboardType="numeric"
       />
       <TextInput style={styles.input} placeholder="Ubicación" value={location} onChangeText={setLocation} />
 
-      {/* Sección para recámaras, baños y m² */}
       <View style={styles.detailsContainer}>
         <TextInput
           style={styles.detailsInput}
           placeholder="Recámaras"
           value={bedrooms}
           onChangeText={setBedrooms}
-          keyboardType="numeric" // Solo permite números
+          keyboardType="numeric"
         />
         <TextInput
           style={styles.detailsInput}
           placeholder="Baños"
           value={bathrooms}
           onChangeText={setBathrooms}
-          keyboardType="numeric" // Solo permite números
+          keyboardType="numeric"
         />
         <TextInput
           style={styles.detailsInput}
           placeholder="m²"
           value={squareMeters}
           onChangeText={setSquareMeters}
-          keyboardType="numeric" // Solo permite números
+          keyboardType="numeric"
         />
       </View>
 
-      {/* Campo de detalles */}
       <TextInput style={styles.input} placeholder="Detalles" value={details} onChangeText={setDetails} />
 
-      {/* Botón de publicar */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Publicar</Text>
       </TouchableOpacity>
@@ -144,12 +163,12 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     padding: 20,
-    paddingBottom: 40, // Añade espacio en la parte inferior para asegurar que el contenido sea visible
+    paddingBottom: 40,
     backgroundColor: '#f0f0f0',
   },
   header: {
-    marginTop: 40, // Añade espacio en la parte superior
-    marginBottom: 20, // Añade espacio entre el título y los botones
+    marginTop: 40,
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -216,27 +235,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   actionsContainer: {
-    flexDirection: 'row', // Cambia la dirección a fila
+    flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
   },
   actionButton: {
-    backgroundColor: '#D3D3D3', // Color del botón inactivo
-    margin: 10, // Aumenta el margen
-    padding: 10, // Aumenta el padding
+    backgroundColor: '#D3D3D3',
+    margin: 10,
+    padding: 10,
     borderRadius: 10,
-    width: '30%', // Ajusta el ancho
+    width: '30%',
     alignItems: 'center',
   },
   activeButton: {
-    backgroundColor: '#FFC157', // Color del botón activo
+    backgroundColor: '#FFC157',
   },
   inactiveButton: {
-    backgroundColor: '#D3D3D3', // Color del botón inactivo
+    backgroundColor: '#D3D3D3',
   },
   actionButtonText: {
     color: 'black',
-    fontSize: 16, // Aumenta el tamaño del texto
+    fontSize: 16,
     fontWeight: 'bold',
     justifyContent: 'center',
   },
