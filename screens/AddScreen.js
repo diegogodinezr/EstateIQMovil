@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { addPropertyRequest } from '../api/property'; // Importa la función de la API
+import { addPropertyRequest } from '../api/property';
 
 const AddScreen = () => {
   const [images, setImages] = useState([]);
@@ -13,13 +13,13 @@ const AddScreen = () => {
   const [bathrooms, setBathrooms] = useState('');
   const [squareMeters, setSquareMeters] = useState('');
   const [details, setDetails] = useState('');
-  const [rentMode, setRentMode] = useState(true); // Estado para el modo Rentar
-  const [sellMode, setSellMode] = useState(false); // Estado para el modo Vender
+  const [rentMode, setRentMode] = useState(true);
+  const [sellMode, setSellMode] = useState(false);
 
   const handleChooseImage = async () => {
-    const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (result.granted === false) {
-      alert('Permission to access camera roll is required!');
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission required', 'You need to grant permission to access the library.');
       return;
     }
 
@@ -36,6 +36,11 @@ const AddScreen = () => {
   };
 
   const handleSubmit = async () => {
+    if (images.length === 0) {
+      Alert.alert('Image required', 'Please select at least one image.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('price', price);
@@ -56,22 +61,26 @@ const AddScreen = () => {
     try {
       const response = await addPropertyRequest(formData);
       if (response.status === 200 || response.status === 201) {
-        alert('¡Propiedad agregada con éxito!');
-        setTitle('');
-        setPrice('');
-        setLocation('');
-        setBedrooms('');
-        setBathrooms('');
-        setSquareMeters('');
-        setDetails('');
-        setImages([]);
+        Alert.alert('Success', 'Property added successfully!');
+        clearForm();
       } else {
-        alert('Hubo un error al agregar la propiedad');
+        Alert.alert('Error', 'There was an error adding the property.');
       }
     } catch (error) {
-      console.error('Error al agregar propiedad:', error);
-      alert('Hubo un error al agregar la propiedad');
+      console.error('Error adding property:', error);
+      Alert.alert('Error', 'There was an error adding the property.');
     }
+  };
+
+  const clearForm = () => {
+    setTitle('');
+    setPrice('');
+    setLocation('');
+    setBedrooms('');
+    setBathrooms('');
+    setSquareMeters('');
+    setDetails('');
+    setImages([]);
   };
 
   const handleRentToggle = () => {
