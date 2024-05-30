@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API = 'http://192.168.1.77:3000/api'; // Asegúrate de que la URL sea correcta y accesible desde tu dispositivo
+import { API } from './url.js';
 
 export const addPropertyRequest = async (formData) => {
   try {

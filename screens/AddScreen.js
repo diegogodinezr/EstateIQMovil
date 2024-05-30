@@ -36,10 +36,11 @@ const AddScreen = () => {
   };
 
   const handleSubmit = async () => {
-    if (images.length === 0) {
-      Alert.alert('Image required', 'Please select at least one image.');
-      return;
-    }
+    // Remove this block of code that checks if there are no images
+    // if (images.length === 0) {
+    //   Alert.alert('Image required', 'Please select at least one image.');
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.append('title', title);
@@ -61,14 +62,14 @@ const AddScreen = () => {
     try {
       const response = await addPropertyRequest(formData);
       if (response.status === 200 || response.status === 201) {
-        Alert.alert('Success', 'Property added successfully!');
+        Alert.alert('Success', 'Propiedad agregada con exito!');
         clearForm();
       } else {
-        Alert.alert('Error', 'There was an error adding the property.');
+        Alert.alert('Error', 'Error al agregar la propiedad.');
       }
     } catch (error) {
       console.error('Error adding property:', error);
-      Alert.alert('Error', 'There was an error adding the property.');
+      Alert.alert('Error', 'Error al agregar la propiedad.');
     }
   };
 

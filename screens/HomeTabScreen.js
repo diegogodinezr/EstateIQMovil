@@ -103,19 +103,21 @@ const HomeScreen = ({ navigation }) => {
         <Icon name="search-outline" size={20} color="#666" />
         <TextInput placeholder="Buscar" style={styles.searchInput} />
       </View>
-      <View style={styles.promotionsContainer}>
-        <Text style={styles.promotionsText}>Promociones de primavera</Text>
-        <Text style={styles.promotionsDescription}>Hasta 10% de descuento en algunas propiedades <Text style={styles.exploreText}>Explorar</Text></Text>
-      </View>
       <FlatList
         data={properties}
         renderItem={renderPropertyItem}
         keyExtractor={(item) => item._id ? item._id.toString() : Math.random().toString()}
         ListHeaderComponent={
-          <View style={styles.listHeader}>
-            <Text style={styles.listHeaderTitle}>Propiedades populares</Text>
-            <Text style={styles.viewAllText}>Ver todo</Text>
-          </View>
+          <>
+            <View style={styles.promotionsContainer}>
+              <Text style={styles.promotionsText}>Promociones de primavera</Text>
+              <Text style={styles.promotionsDescription}>Hasta 10% de descuento en algunas propiedades <Text style={styles.exploreText}>Explorar</Text></Text>
+            </View>
+            <View style={styles.listHeader}>
+              <Text style={styles.listHeaderTitle}>Propiedades populares</Text>
+              <Text style={styles.viewAllText}>Ver todo</Text>
+            </View>
+          </>
         }
         ListFooterComponent={
           <View style={styles.listHeader}>
@@ -202,6 +204,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginTop: 10,
+    marginBottom: 5,
   },
   searchInput: {
     marginLeft: 10,
